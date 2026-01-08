@@ -1,377 +1,389 @@
 # LGTM Stack - Observability Platform
 
-A comprehensive observability stack built with Docker, featuring Grafana, OpenTelemetry, Loki, Tempo, Prometheus, and Pyroscope for complete application monitoring and observability.
+<div align="center">
 
-## 🏗️ What's Included
+![LGTM Stack](docs-mkdocs/docs/assets/images/logo.svg)
 
-This project provides a complete observability platform with:
+**A comprehensive observability stack for modern microservices**
 
-- **Grafana** - Visualization and dashboards
-- **OpenTelemetry Collector** - Telemetry data collection and processing
-- **Prometheus** - Metrics collection and storage
-- **Loki** - Log aggregation
-- **Tempo** - Distributed tracing
-- **Pyroscope** - Continuous profiling
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Documentation](https://img.shields.io/badge/docs-mkdocs-blue)](https://hardik-sankhla.github.io/Hardik-Sankhla-LGTM_Microservices_Observability_Stack/)
+
+</div>
+
+---
+
+## 📖 Overview
+
+The **LGTM Stack** is a production-ready observability platform that combines the best open-source monitoring tools into a unified, Docker-based solution. Built for modern microservices architectures, it provides complete visibility into your applications through metrics, logs, traces, and profiling.
+
+### 🎯 Key Features
+
+- **📊 Complete Observability**: Unified platform for metrics, logs, traces, and profiling
+- **🐳 Docker-Native**: Easy deployment with Docker Compose
+- **⚡ Production-Ready**: Configured for high availability and performance
+- **🔧 Highly Configurable**: Customizable dashboards, alerts, and integrations
+- **📚 Comprehensive Documentation**: Detailed guides and examples
+- **🚀 Quick Start**: Up and running in minutes
+
+---
+
+## 🏗️ Architecture
+
+The LGTM Stack integrates six powerful observability tools:
+
+| Component | Purpose | Port | Status |
+|-----------|---------|------|--------|
+| **Grafana** | Visualization & Dashboards | 3000 | ✅ Ready |
+| **OpenTelemetry Collector** | Telemetry Pipeline | 4317/4318 | ✅ Ready |
+| **Prometheus** | Metrics Collection | 9090 | ✅ Ready |
+| **Loki** | Log Aggregation | 3100 | ✅ Ready |
+| **Tempo** | Distributed Tracing | 3200 | ✅ Ready |
+| **Pyroscope** | Continuous Profiling | 4040 | ✅ Ready |
+
+### System Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Your Application                          │
+│              (Instrumented with OpenTelemetry)              │
+└───────────────────────┬─────────────────────────────────────┘
+                        │
+                        ▼
+┌─────────────────────────────────────────────────────────────┐
+│           OpenTelemetry Collector (OTLP)                    │
+│         (Receives, Processes, Exports Telemetry)            │
+└─────────────────┬───────────────┬───────────────┬───────────┘
+                  │               │               │
+         ┌────────┘               │               └────────┐
+         ▼                        ▼                        ▼
+┌─────────────┐         ┌─────────────┐         ┌─────────────┐
+│ Prometheus  │         │    Loki     │         │   Tempo     │
+│  (Metrics)  │         │   (Logs)    │         │  (Traces)   │
+└──────┬──────┘         └──────┬──────┘         └──────┬──────┘
+       │                       │                        │
+       │               ┌───────┴────────┐               │
+       │               │                │               │
+       ▼               ▼                ▼               ▼
+┌──────────────────────────────────────────────────────────────┐
+│                        Grafana                                │
+│              (Unified Visualization Layer)                    │
+└──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+                     ┌─────────────────┐
+                     │   Pyroscope     │
+                     │   (Profiling)   │
+                     └─────────────────┘
+```
+
+---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Docker and Docker Compose
-- Git
+
+- **Docker** (20.10+) and **Docker Compose** (1.29+)
+- **Git**
+- **8GB RAM** minimum (16GB recommended)
+- **10GB disk space**
 
 ### Installation
 
-1. **Clone the repository:**
+1. **Clone the repository**
    ```bash
    git clone https://github.com/Hardik-Sankhla/Hardik-Sankhla-LGTM_Microservices_Observability_Stack.git
    cd Hardik-Sankhla-LGTM_Microservices_Observability_Stack
    ```
 
-2. **Start the stack:**
+2. **Start the stack**
    ```bash
+   # Linux/Mac
+   ./run-lgtm.sh
+   
+   # Windows PowerShell
+   ./run-lgtm.ps1
+   
+   # Or using Docker Compose directly
    docker-compose up -d
    ```
 
-3. **Access the services:**
-   - **Grafana**: http://localhost:3000 (admin/admin)
-   - **Prometheus**: http://localhost:9090
-   - **Loki**: http://localhost:3100
-   - **Tempo**: http://localhost:3200
-   - **Pyroscope**: http://localhost:4040
+3. **Access the services**
+   
+   | Service | URL | Default Credentials |
+   |---------|-----|---------------------|
+   | **Grafana** | [http://localhost:3000](http://localhost:3000) | admin / admin |
+   | **Prometheus** | [http://localhost:9090](http://localhost:9090) | - |
+   | **Loki** | [http://localhost:3100](http://localhost:3100) | - |
+   | **Tempo** | [http://localhost:3200](http://localhost:3200) | - |
+   | **Pyroscope** | [http://localhost:4040](http://localhost:4040) | - |
+   | **OTLP gRPC** | `http://localhost:4317` | - |
+   | **OTLP HTTP** | `http://localhost:4318` | - |
+
+### Verify Installation
+
+```bash
+# Check if all services are running
+docker-compose ps
+
+# View logs
+docker-compose logs -f
+```
+
+---
 
 ## 📚 Documentation
 
-Complete documentation is available at: [https://hardik-sankhla.github.io/Hardik-Sankhla-LGTM_Microservices_Observability_Stack/](https://hardik-sankhla.github.io/Hardik-Sankhla-LGTM_Microservices_Observability_Stack/)
+### 📖 Complete Documentation
 
-The documentation includes:
-- Detailed setup instructions
-- Configuration guides
-- Architecture overview
-- Examples and tutorials
-- Production deployment guides
+**Visit our comprehensive documentation site**: [https://hardik-sankhla.github.io/Hardik-Sankhla-LGTM_Microservices_Observability_Stack/](https://hardik-sankhla.github.io/Hardik-Sankhla-LGTM_Microservices_Observability_Stack/)
 
-## 🏛️ Architecture
+This documentation is built with **MkDocs** and **Material for MkDocs**.
 
+### 📋 Documentation Contents
+
+#### 🎯 Getting Started
+- **[Overview](docs-mkdocs/docs/overview.md)** - Introduction to the LGTM Stack
+- **[Quick Start](docs-mkdocs/docs/quick-start.md)** - Get up and running in 5 minutes
+- **[Installation](docs-mkdocs/docs/installation.md)** - Detailed installation instructions
+
+#### 🏛️ Architecture & Components
+- **[System Architecture](docs-mkdocs/docs/architecture.md)** - High-level system design
+- **[Components Overview](docs-mkdocs/docs/components/index.md)** - Detailed component documentation
+  - [OpenTelemetry Collector](docs-mkdocs/docs/components/otel-collector.md)
+  - Grafana, Prometheus, Loki, Tempo, Pyroscope
+- **[Data Flow](docs-mkdocs/docs/data-flow.md)** - How telemetry flows through the system
+
+#### ⚙️ Configuration
+- **[Configuration Guide](docs-mkdocs/docs/configuration/index.md)** - Configuration options
+- **[Environment Variables](docs-mkdocs/docs/configuration/environment-variables.md)** - All available variables
+
+#### 💻 Examples & Tutorials
+- **[Language Examples](docs-mkdocs/docs/examples/index.md)** - Instrumented applications
+  - Go, Java, Node.js, Python, .NET examples
+  - Custom instrumentation patterns
+
+#### 🔧 Operations & Maintenance
+- **[Troubleshooting](docs-mkdocs/docs/operations/troubleshooting.md)** - Common issues and solutions
+- Performance tuning and optimization
+- Backup and recovery strategies
+
+#### 🏭 Production Deployment
+- **[Deployment Guide](docs-mkdocs/docs/production/deployment-guide.md)** - Production strategies
+- **[Microservices Migration](docs-mkdocs/docs/production/microservices-migration.md)** - Migration guide
+- **[Security Hardening](docs-mkdocs/docs/production/security-hardening.md)** - Security best practices
+
+---
+
+## 🔌 Sending Telemetry Data
+
+### OpenTelemetry Integration
+
+The stack works with OpenTelemetry's default configuration:
+
+```bash
+# Default OpenTelemetry endpoints (already configured)
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
 ```
-┌─────────────────┐    ┌─────────────────┐
-│   Application   │───▶│ OpenTelemetry   │
-│                 │    │   Collector     │
-└─────────────────┘    └─────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────┐
-│                 LGTM Stack                      │
-│                                                 │
-│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ │
-│  │ Prometheus  │ │    Loki     │ │   Tempo     │ │
-│  │  Metrics    │ │    Logs     │ │  Traces     │ │
-│  └─────────────┘ └─────────────┘ └─────────────┘ │
-│                                                 │
-│             ┌─────────────────┐                 │
-│             │    Grafana      │                 │
-│             │ Visualization   │                 │
-│             └─────────────────┘                 │
-│                                                 │
-│             ┌─────────────────┐                 │
-│             │   Pyroscope     │                 │
-│             │   Profiling     │                 │
-│             └─────────────────┘                 │
-└─────────────────────────────────────────────────┘
+
+### Instrumentation Examples
+
+#### Go
+```go
+import "go.opentelemetry.io/otel"
+
+// See examples/go/ for complete example
 ```
+
+#### Python
+```python
+from opentelemetry import trace
+
+# See examples/python/ for complete example
+```
+
+#### Java
+```java
+import io.opentelemetry.api.trace.Tracer;
+
+// See examples/java/ for complete example
+```
+
+#### Node.js
+```javascript
+const { trace } = require('@opentelemetry/api');
+
+// See examples/nodejs/ for complete example
+```
+
+#### .NET
+```csharp
+using OpenTelemetry.Trace;
+
+// See examples/dotnet/ for complete example
+```
+
+For detailed examples, see the [`examples/`](examples/) directory.
+
+---
 
 ## 🛠️ Development
 
 ### Local Development Setup
 
-1. **Install dependencies:**
+1. **Install documentation dependencies**
    ```bash
-   pip install -r docs-mkdocs/requirements.txt
+   cd docs-mkdocs
+   pip install -r requirements.txt
    ```
 
-2. **Serve documentation locally:**
+2. **Serve documentation locally**
    ```bash
    cd docs-mkdocs
    mkdocs serve
    ```
+   Visit: [http://localhost:8000](http://localhost:8000)
 
-3. **Build for production:**
+3. **Build documentation**
    ```bash
    cd docs-mkdocs
    mkdocs build
    ```
 
-## 📦 Project Structure
+### Project Structure
 
 ```
 Hardik-Sankhla-LGTM_Microservices_Observability_Stack/
-├── docker/                 # Docker configurations
-├── docs-mkdocs/           # Professional documentation (MkDocs)
-├── examples/              # Usage examples
-├── k8s/                   # Kubernetes manifests
-├── docker-compose.yml     # Main stack configuration
-├── build-lgtm.*          # Build scripts
-├── run-lgtm.*            # Run scripts
-└── README.md             # This file
+├── docker/                    # Docker configurations
+│   ├── Dockerfile            # Main Docker image
+│   ├── grafana-*.json        # Grafana dashboards
+│   ├── *-config.yaml         # Component configurations
+│   └── run-*.sh              # Component startup scripts
+├── docs-mkdocs/              # Professional documentation
+│   ├── docs/                 # Markdown documentation
+│   ├── mkdocs.yml            # MkDocs configuration
+│   └── requirements.txt      # Python dependencies
+├── examples/                 # Language-specific examples
+│   ├── go/                   # Go example
+│   ├── java/                 # Java example
+│   ├── nodejs/               # Node.js example
+│   ├── python/               # Python example
+│   └── dotnet/               # .NET example
+├── k8s/                      # Kubernetes manifests
+│   └── lgtm.yaml            # K8s deployment
+├── docker-compose.yml        # Main stack configuration
+├── build-lgtm.*             # Build scripts
+├── run-lgtm.*               # Run scripts
+└── README.md                # This file
 ```
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-## 📄 License
-
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
-
-## 👤 Author
-
-**Hardik Sankhla**
-- GitHub: [@Hardik-Sankhla](https://github.com/Hardik-Sankhla)
 
 ---
 
-**Built with ❤️ by Hardik Sankhla** | © 2026 All Rights Reserved
+## ⚙️ Configuration
 
-- Blog posts:
-  - [_An OpenTelemetry backend in a Docker image: Introducing grafana/otel-lgtm_][otel-lgtm]
-  - [_Observability in under 5 seconds: Reflecting on a year of grafana/otel-lgtm_][otel-lgtm-one-year]
+### Environment Variables
 
-## Get the Docker image
+Configure the stack using environment variables in a `.env` file:
 
-The Docker image is available on [Docker Hub][docker-hub].
+```bash
+# Enable component logging
+ENABLE_LOGS_GRAFANA=true
+ENABLE_LOGS_LOKI=true
+ENABLE_LOGS_PROMETHEUS=true
+ENABLE_LOGS_TEMPO=true
+ENABLE_LOGS_PYROSCOPE=true
+ENABLE_LOGS_OTELCOL=true
+ENABLE_LOGS_ALL=true
 
-```sh
-docker pull grafana/otel-lgtm:latest
+# External OTLP endpoint (optional)
+OTEL_EXPORTER_OTLP_ENDPOINT=https://your-vendor.com
+OTEL_EXPORTER_OTLP_HEADERS=Authorization=Bearer your-token
 ```
 
-## Run the Docker image
+### Kubernetes Deployment
 
-### Linux/Unix
+Deploy to Kubernetes:
 
-```sh
-./run-lgtm.sh
-```
-
-### Windows (PowerShell)
-
-```powershell
-./run-lgtm
-```
-
-### Linux/Unix Using mise
-
-You can also use [mise][mise] to run the Docker image:
-
-```sh
-mise run lgtm
-```
-
-## Configuration
-
-### Enable logging
-
-You can enable logging in the .env file for troubleshooting:
-
-| Environment Variable     | Enables Logging in:     |
-|--------------------------|-------------------------|
-| `ENABLE_LOGS_GRAFANA`    | Grafana                 |
-| `ENABLE_LOGS_LOKI`       | Loki                    |
-| `ENABLE_LOGS_PROMETHEUS` | Prometheus              |
-| `ENABLE_LOGS_TEMPO`      | Tempo                   |
-| `ENABLE_LOGS_PYROSCOPE`  | Pyroscope               |
-| `ENABLE_LOGS_OTELCOL`    | OpenTelemetry Collector |
-| `ENABLE_LOGS_ALL`        | All of the above        |
-
-This has nothing to do with any application logs, which are collected by OpenTelemetry.
-
-### Send data to vendors
-
-In addition to the built-in observability tools, you can also send data to vendors.
-That way, you can easily try and switch between different backends.
-
-If the [`OTEL_EXPORTER_OTLP_ENDPOINT`][otlp-endpoint]
-variable is set, the OpenTelemetry Collector will send data (logs, metrics, and traces)
-to the specified endpoint using "OTLP/HTTP".
-
-In addition, you can provide [`OTEL_EXPORTER_OTLP_HEADERS`][otlp-headers],
-for example, to authenticate with the backend.
-
-#### Send data to Grafana Cloud
-
-You can find the values for the environment variables in your [Grafana Cloud account][otel-setup].
-
-### Persist data across container instantiation
-
-The various components in the repository are configured to write their data to the `/data`
-directory. If you need to persist data across containers being created and destroyed,
-you can mount a volume to the `/data` directory. Note that this image is intended for
-development, demo, and testing environments and persisting data to an external volume
-doesn't change that. However, this feature could be useful in certain cases for
-some users even in testing situations.
-
-### Pre-install Grafana plugins
-
-You can pre-install Grafana plugins by adding them to the `GF_PLUGINS_PREINSTALL` environment variable.
-See the [Grafana documentation][grafana-preinstall-plugins] for more information.
-
-## Run lgtm in Kubernetes
-
-```sh
-# Create k8s resources
+```bash
+# Apply Kubernetes manifests
 kubectl apply -f k8s/lgtm.yaml
 
-# Configure port forwarding
+# Port forward services
 kubectl port-forward service/lgtm 3000:3000 4040:4040 4317:4317 4318:4318 9090:9090
-
-# Using mise
-mise k8s-apply
-mise k8s-port-forward
 ```
 
-## Send OpenTelemetry Data
+### Data Persistence
 
-There's no need to configure anything: the Docker image works with OpenTelemetry's defaults.
+Mount a volume to `/data` for persistent storage:
 
-```sh
-# Not needed, but these are the defaults in OpenTelemetry
-export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
-export OTEL_EXPORTER_OTLP_ENDPOINT=http://127.0.0.1:4318
+```yaml
+volumes:
+  - ./data:/data
 ```
 
-## View Grafana
+---
 
-Navigate to <http://127.0.0.1:3000> and log in with the default built-in user `admin` and password `admin`.
+## 🤝 Contributing
 
-## Build the Docker image from scratch
+Contributions are welcome! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-```sh
-cd docker/
-docker build . -t grafana/otel-lgtm
+### How to Contribute
 
-# Using mise
-mise build-lgtm
-```
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
 
-> [!TIP]
-> If you built your image locally, you can use the `run-lgtm` scripts with
-> the parameters `latest true` to run your local image (or `mise run local-lgtm`).
+---
 
-## Build and run the example app
+## 📄 License
 
-> [!TIP]
-> You can run everything together using [mise][mise] with `mise run all`.
+This project is licensed under the **Apache License 2.0** - see the [LICENSE](LICENSE) file for details.
 
-### Run
+---
 
-Run the example REST service:
+## 👤 Author & Ownership
 
-#### Unix/Linux
+**Hardik Sankhla**
 
-```sh
-./run-example.sh
-```
+- 🌐 GitHub: [@Hardik-Sankhla](https://github.com/Hardik-Sankhla)
+- 📧 Project Maintainer & Owner
+- 💼 All Rights Reserved © 2026
 
-#### Windows (PowerShell)
+---
 
-```powershell
-./run-example
-```
+## 🙏 Acknowledgments
 
-#### Unix/Linux Using mise
+This project leverages the excellent work of the OpenTelemetry and Grafana open-source communities. Special thanks to:
 
-```sh
-mise run example
-```
+- **OpenTelemetry**: For the comprehensive observability framework
+- **Grafana Labs**: For the visualization and monitoring tools
+- **CNCF**: For fostering open-source observability standards
 
-### Generate traffic
+---
 
-#### Unix/Linux
+## 📞 Support
 
-```sh
-./generate-traffic.sh
-```
+- **📖 Documentation**: [https://hardik-sankhla.github.io/Hardik-Sankhla-LGTM_Microservices_Observability_Stack/](https://hardik-sankhla.github.io/Hardik-Sankhla-LGTM_Microservices_Observability_Stack/)
+- **🐛 Issues**: [GitHub Issues](https://github.com/Hardik-Sankhla/Hardik-Sankhla-LGTM_Microservices_Observability_Stack/issues)
+- **💬 Discussions**: [GitHub Discussions](https://github.com/Hardik-Sankhla/Hardik-Sankhla-LGTM_Microservices_Observability_Stack/discussions)
 
-#### Windows (PowerShell)
+---
 
-```powershell
-./generate-traffic
-```
+## ⭐ Star History
 
-#### Unix/Linux Using mise
+If you find this project helpful, please consider giving it a star ⭐
 
-```sh
-mise run generate-traffic
-```
+---
 
-> [!TIP]
-> You can use [OTel Checker][otel-checker] to check if the instrumentation is correct.
+<div align="center">
 
-## Run example apps in different languages
+**Built with ❤️ by Hardik Sankhla**
 
-The example apps are in the [`examples/`][examples] directory.
-Each example has a `run.sh` or `run.cmd` script to start the app.
+© 2026 Hardik Sankhla. All Rights Reserved.
 
-Every example implements a rolldice service, which returns a random number between 1 and 6.
+[Documentation](https://hardik-sankhla.github.io/Hardik-Sankhla-LGTM_Microservices_Observability_Stack/) • [GitHub](https://github.com/Hardik-Sankhla/Hardik-Sankhla-LGTM_Microservices_Observability_Stack) • [License](LICENSE)
 
-Each example uses a different application port
-(to be able to run all applications at the same time).
-
-| Example | Service URL                           |
-|---------|---------------------------------------|
-| Java    | `curl http://127.0.0.1:8080/rolldice` |
-| Go      | `curl http://127.0.0.1:8081/rolldice` |
-| Python  | `curl http://127.0.0.1:8082/rolldice` |
-| .NET    | `curl http://127.0.0.1:8083/rolldice` |
-| Node.js | `curl http://127.0.0.1:8084/rolldice` |
-
-## Verifying Container Image Signatures
-
-The container images that are published are signed using [cosign][cosign]. You
-can verify the signatures using a command similar to the following example:
-
-```sh
-VERSION="0.11.16"
-IMAGE="docker.io/grafana/otel-lgtm:${VERSION}"
-IDENTITY="https://github.com/grafana/docker-otel-lgtm/.github/workflows/release.yml@refs/tags/v${VERSION}"
-OIDC_ISSUER="https://token.actions.githubusercontent.com"
-
-cosign verify ${IMAGE} --certificate-identity ${IDENTITY} --certificate-oidc-issuer ${OIDC_ISSUER}
-```
-
-It is also possible to verify the signatures of images from our continuous integration
-that are published to the [GitHub Container Registry][ghcr]. For example for the `main` branch:
-
-```sh
-VERSION="main"
-IMAGE="ghcr.io/grafana/docker-otel-lgtm:${VERSION}"
-WORKFLOW="ghcr-image-build-and-publish.yml"
-IDENTITY="https://github.com/grafana/docker-otel-lgtm/.github/workflows/${WORKFLOW}@refs/heads/${VERSION}"
-OIDC_ISSUER="https://token.actions.githubusercontent.com"
-
-cosign verify ${IMAGE} --certificate-identity ${IDENTITY} --certificate-oidc-issuer ${OIDC_ISSUER}
-```
-
-## Related Work
-
-- [Metrics, Logs, Traces and Profiles in Grafana][mltp]
-- [OpenTelemetry Acceptance Tests (OATs)][oats]
-
-<!-- editorconfig-checker-disable -->
-<!-- markdownlint-disable MD013 -->
-
-[app-o11y]: https://grafana.com/products/cloud/application-observability/
-[cosign]: https://github.com/sigstore/cosign "Cosign on GitHub"
-[docker-hub]: https://hub.docker.com/r/grafana/otel-lgtm
-[docker-latest]: https://img.shields.io/docker/v/grafana/otel-lgtm?logo=docker&label=latest&color=blue
-[docker-pulls]: https://img.shields.io/docker/pulls/grafana/otel-lgtm?logo=docker&label=pulls
-[examples]: https://github.com/grafana/docker-otel-lgtm/tree/main/examples
-[ghcr]: https://github.com/grafana/docker-otel-lgtm/pkgs/container/docker-otel-lgtm
-[grafana-preinstall-plugins]: https://grafana.com/docs/grafana/latest/setup-grafana/configure-docker/#install-plugins-in-the-docker-container
-[mise]: https://github.com/jdx/mise
-[mltp]: https://github.com/grafana/intro-to-mltp
-[otel-checker]: https://github.com/grafana/otel-checker/
-[otel-lgtm]: https://grafana.com/blog/2024/03/13/an-opentelemetry-backend-in-a-docker-image-introducing-grafana-otel-lgtm
-[otel-lgtm-one-year]: https://grafana.com/blog/2025/07/08/observability-in-under-5-seconds-reflecting-on-a-year-of-grafana-otel-lgtm/
-[otel-setup]: https://grafana.com/docs/grafana-cloud/send-data/otlp/send-data-otlp/#manual-opentelemetry-setup-for-advanced-users
-[otlp-endpoint]: https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/#otel_exporter_otlp_endpoint
-[otlp-headers]: https://opentelemetry.io/docs/languages/sdk-configuration/otlp-exporter/#otel_exporter_otlp_headers
-[oats]: https://github.com/grafana/oats
+</div>

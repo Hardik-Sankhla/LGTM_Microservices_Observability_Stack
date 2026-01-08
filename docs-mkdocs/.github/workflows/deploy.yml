@@ -3,9 +3,9 @@ name: Deploy MkDocs to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - gh-pages  # Deploy from gh-pages branch
     paths:
-      - 'docs-mkdocs/**'
+      - '**'
   workflow_dispatch:
 
 permissions:
@@ -35,13 +35,12 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('docs-mkdocs/requirements.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
 
       - name: Install dependencies
         run: |
-          cd docs-mkdocs
           pip install -r requirements.txt
 
       - name: Setup Pages
@@ -49,13 +48,12 @@ jobs:
 
       - name: Build with MkDocs
         run: |
-          cd docs-mkdocs
           mkdocs build --clean
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs-mkdocs/site
+          path: site
 
   deploy:
     environment:
