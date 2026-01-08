@@ -127,9 +127,9 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 **Hardik Sankhla**
 - GitHub: [@Hardik-Sankhla](https://github.com/Hardik-Sankhla)
 
-## 🙏 Acknowledgments
+---
 
-This project is built upon the excellent work of the OpenTelemetry and Grafana communities.
+**Built with ❤️ by Hardik Sankhla** | © 2026 All Rights Reserved
 
 - Blog posts:
   - [_An OpenTelemetry backend in a Docker image: Introducing grafana/otel-lgtm_][otel-lgtm]
