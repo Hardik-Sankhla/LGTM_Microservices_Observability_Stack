@@ -1,0 +1,168 @@
+site_name: LGTM Stack Documentation
+site_description: Comprehensive observability stack documentation for Grafana, OpenTelemetry, Loki, Tempo, Prometheus, and Pyroscope
+site_author: Hardik Sankhla
+site_url: https://hardik-sankhla.github.io/Hardik-Sankhla-LGTM_Microservices_Observability_Stack/
+
+# Repository
+repo_name: Hardik-Sankhla-LGTM_Microservices_Observability_Stack
+repo_url: https://github.com/Hardik-Sankhla/Hardik-Sankhla-LGTM_Microservices_Observability_Stack
+
+# Theme configuration
+theme:
+  name: material
+  language: en
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+  font:
+    text: Inter
+    code: JetBrains Mono
+  favicon: assets/images/favicon.ico
+  logo: assets/images/logo.svg
+  features:
+    - announce.dismiss
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    - content.code.select
+    - content.footnote.tooltips
+    - content.tabs.link
+    - content.tooltips
+    - header.autohide
+    - navigation.expand
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.prune
+    - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+    - toc.integrate
+
+# Plugins
+plugins:
+  - search:
+      separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - minify:
+      minify_html: true
+  # - git-revision-date-localized:
+  #     enable_creation_date: true
+  #     type: timeago
+  # - git-committers:
+  #     repository: Hardik-Sankhla/LGTM_Microservices_Observability_Stack
+  #     branch: main
+
+# Customization
+extra:
+  version:
+    provider: mike
+    default: latest
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Hardik-Sankhla/LGTM_Microservices_Observability_Stack
+    - icon: fontawesome/brands/docker
+      link: https://hub.docker.com
+  generator: false
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - meta
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      normalize_issue_symbols: true
+      repo_url_shorthand: true
+      user: Hardik-Sankhla
+      repo: Hardik-Sankhla-LGTM_Microservices_Observability_Stack
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - tables
+  - toc:
+      permalink: true
+
+# Navigation
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Overview: overview.md
+      - Quick Start: quick-start.md
+      - Installation: installation.md
+  - Architecture & Design:
+      - System Architecture: architecture.md
+      - Components:
+          - Overview: components/index.md
+          - OpenTelemetry Collector: components/otel-collector.md
+      - Data Flow: data-flow.md
+  - Configuration:
+      - Configuration Guide: configuration/index.md
+      - Environment Variables: configuration/environment-variables.md
+  - Examples & Tutorials:
+      - Language Examples: examples/index.md
+  - Operations & Maintenance:
+      - Troubleshooting: operations/troubleshooting.md
+  - Production Deployment:
+      - Deployment Guide: production/deployment-guide.md
+      - Microservices Migration: production/microservices-migration.md
+      - Security Hardening: production/security-hardening.md
+  - API Reference: api/reference.md
+  - Contributing: contributing/development.md
